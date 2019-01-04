@@ -56,6 +56,12 @@ namespace bx
 		float x, y, z;
 	};
 
+	struct Plane
+	{
+		bx::Vec3 normal;
+		float    dist;
+	};
+
 	///
 	struct Quaternion
 	{
@@ -274,6 +280,9 @@ namespace bx
 	///
 	template<typename Ty>
 	void store(void* _ptr, const Ty& _a);
+
+	///
+	BX_CONSTEXPR_FUNC Vec3 round(const Vec3 _a);
 
 	///
 	BX_CONSTEXPR_FUNC Vec3 abs(const Vec3 _a);
@@ -525,12 +534,6 @@ namespace bx
 	Vec3 mulH(const Vec3& _vec, const float* _mat);
 
 	///
-	void vec3MulMtx(float* _result, const float* _vec, const float* _mat);
-
-	///
-	void vec3MulMtxH(float* _result, const float* _vec, const float* _mat);
-
-	///
 	void vec4MulMtx(float* _result, const float* _vec, const float* _mat);
 
 	///
@@ -557,10 +560,10 @@ namespace bx
 	bx::Vec3 calcNormal(const bx::Vec3& _va, const bx::Vec3& _vb, const bx::Vec3& _vc);
 
 	///
-	void calcPlane(float _result[4], const bx::Vec3& _va, const bx::Vec3& _vb, const bx::Vec3& _vc);
+	void calcPlane(Plane& _outPlane, const bx::Vec3& _va, const bx::Vec3& _vb, const bx::Vec3& _vc);
 
 	///
-	void calcPlane(float _result[4], const bx::Vec3& _normal, const bx::Vec3& _pos);
+	void calcPlane(Plane& _outPlane, const bx::Vec3& _normal, const bx::Vec3& _pos);
 
 	///
 	void calcLinearFit2D(float _result[2], const void* _points, uint32_t _stride, uint32_t _numPoints);
